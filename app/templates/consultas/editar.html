@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="card">
+    <div class="card-header">
+        <h2>Editar Consulta</h2>
+    </div>
+    <div class="card-body">
+        <form method="POST">
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label for="id_paciente">Paciente</label>
+                    <select class="form-control" id="id_paciente" name="id_paciente" required>
+                        <option value="">Selecione um paciente</option>
+                        {% for paciente in pacientes %}
+                        <option value="{{ paciente.id_paciente }}" 
+                                {% if paciente.id_paciente == consulta.id_paciente %}selected{% endif %}>
+                            {{ paciente.nome }}
+                        </option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="id_medico">Médico</label>
+                    <select class="form-control" id="id_medico" name="id_medico" required>
+                        <option value="">Selecione um médico</option>
+                        {% for medico in medicos %}
+                        <option value="{{ medico.id_medico }}"
+                                {% if medico.id_medico == consulta.id_medico %}selected{% endif %}>
+                            {{ medico.nome }} - {{ medico.especialidade }}
+                        </option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label for="data">Data</label>
+                    <input type="date" class="form-control" id="data" name="data" 
+                           value="{{ consulta.data.strftime('%Y-%m-%d') }}" required>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="hora">Hora</label>
+                    <input type="time" class="form-control" id="hora" name="hora" 
+                           value="{{ consulta.hora.strftime('%H:%M') }}" required>
+                </div>
+            </div>
+            <div class="mb-3">
+                <label for="descricao">Descrição</label>
+                <textarea class="form-control" id="descricao" name="descricao" rows="3">{{ consulta.descricao }}</textarea>
+            </div>
+            <div class="text-end">
+                <a href="{{ url_for('listar_consultas') }}" class="btn btn-secondary">Cancelar</a>
+                <button type="submit" class="btn btn-primary">Salvar Alterações</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %} 

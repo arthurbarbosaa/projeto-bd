@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1>Pagamentos</h1>
+    <a href="{{ url_for('criar_pagamento') }}" class="btn btn-primary">Novo Pagamento</a>
+</div>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Consulta</th>
+            <th>Paciente</th>
+            <th>Médico</th>
+            <th>Valor</th>
+            <th>Data Pagamento</th>
+            <th>Método</th>
+            <th>Status</th>
+            <th>Ações</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for pagamento in pagamentos %}
+        <tr>
+            <td>{{ pagamento.consulta.data.strftime('%d/%m/%Y') }} - {{ pagamento.consulta.hora.strftime('%H:%M') }}</td>
+            <td>{{ pagamento.consulta.paciente.nome }}</td>
+            <td>{{ pagamento.consulta.medico.nome }}</td>
+            <td>R$ {{ "%.2f"|format(pagamento.valor) }}</td>
+            <td>{{ pagamento.data_pagamento.strftime('%d/%m/%Y') }}</td>
+            <td>{{ pagamento.metodo_pagamento }}</td>
+            <td>{{ pagamento.status }}</td>
+            <td>
+                <a href="{{ url_for('editar_pagamento', id=pagamento.id_pagamento) }}" class="btn btn-sm btn-warning">
+                    <i class="fas fa-edit"></i>
+                </a>
+                <a href="{{ url_for('deletar_pagamento', id=pagamento.id_pagamento) }}" class="btn btn-sm btn-danger" 
+                   onclick="return confirm('Tem certeza que deseja excluir este pagamento?')">
+                    <i class="fas fa-trash"></i>
+                </a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %} 

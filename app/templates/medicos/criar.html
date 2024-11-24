@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="card">
+    <div class="card-header">
+        <h2>Novo Médico</h2>
+    </div>
+    <div class="card-body">
+        <form method="POST">
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label for="nome">Nome</label>
+                    <input type="text" class="form-control" id="nome" name="nome" required>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="especialidade">Especialidade</label>
+                    <input type="text" class="form-control" id="especialidade" name="especialidade" required>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 mb-3">
+                    <label for="telefone">Telefone</label>
+                    <input type="text" class="form-control" id="telefone" name="telefone">
+                </div>
+                <div class="col-md-4 mb-3">
+                    <label for="email">Email</label>
+                    <input type="email" class="form-control" id="email" name="email">
+                </div>
+                <div class="col-md-4 mb-3">
+                    <label for="anos_experiencia">Anos de Experiência</label>
+                    <input type="number" class="form-control" id="anos_experiencia" name="anos_experiencia" min="0">
+                </div>
+            </div>
+            <div class="text-end">
+                <a href="{{ url_for('listar_medicos') }}" class="btn btn-secondary">Cancelar</a>
+                <button type="submit" class="btn btn-primary">Salvar</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %} 

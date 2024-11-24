@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="card">
+    <div class="card-header">
+        <h2>Novo Pagamento</h2>
+    </div>
+    <div class="card-body">
+        <form method="POST">
+            <div class="row">
+                <div class="col-md-12 mb-3">
+                    <label for="id_consulta">Consulta</label>
+                    <select class="form-control" id="id_consulta" name="id_consulta" required>
+                        <option value="">Selecione uma consulta</option>
+                        {% for consulta in consultas %}
+                        <option value="{{ consulta.id_consulta }}">
+                            {{ consulta.paciente.nome }} - Dr(a). {{ consulta.medico.nome }} - 
+                            {{ consulta.data.strftime('%d/%m/%Y') }} {{ consulta.hora.strftime('%H:%M') }}
+                        </option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 mb-3">
+                    <label for="valor">Valor R$</label>
+                    <input type="number" step="0.01" class="form-control" id="valor" name="valor" required>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <label for="data_pagamento">Data do Pagamento</label>
+                    <input type="date" class="form-control" id="data_pagamento" name="data_pagamento" required>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <label for="metodo_pagamento">Método de Pagamento</label>
+                    <select class="form-control" id="metodo_pagamento" name="metodo_pagamento" required>
+                        <option value="Dinheiro">Dinheiro</option>
+                        <option value="Cartão de Crédito">Cartão de Crédito</option>
+                        <option value="Cartão de Débito">Cartão de Débito</option>
+                        <option value="PIX">PIX</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 mb-3">
+                    <label for="status">Status</label>
+                    <select class="form-control" id="status" name="status" required>
+                        <option value="Pendente">Pendente</option>
+                        <option value="Pago">Pago</option>
+                        <option value="Cancelado">Cancelado</option>
+                    </select>
+                </div>
+            </div>
+            <div class="text-end">
+                <a href="{{ url_for('listar_pagamentos') }}" class="btn btn-secondary">Cancelar</a>
+                <button type="submit" class="btn btn-primary">Salvar</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %} 
